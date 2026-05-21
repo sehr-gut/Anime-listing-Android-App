@@ -71,6 +71,18 @@ fun AnimeWithDetails.toUiModel(): Anime {
     val parsedThemes = themes?.split(",")?.map { it.trim() }?.filter { it.isNotEmpty() } ?: emptyList()
     val parsedStudios = studios?.split(",")?.map { it.trim() }?.filter { it.isNotEmpty() } ?: emptyList()
 
+    val displayStatus = when {
+        isCompleted -> "Completed"
+        isInWatchlist -> "In Watchlist"
+        else -> status
+    }
+
+    val displayStatusColor = when {
+        isCompleted -> Color(0xFF12B76A) // Success Green
+        isInWatchlist -> Color(0xFFD92D20) // Error Red
+        else -> Color.Transparent
+    }
+
     return Anime(
         id = mal_id ?: 0,
         url = url ?: "",
@@ -81,12 +93,8 @@ fun AnimeWithDetails.toUiModel(): Anime {
         episodes = episodes?.toInt(),
         rating = rating ?: "Unrated",
         score = score?.toString() ?: "0.0",
-        status = status,
-        statusColor = when (status) {
-            "in watchlist" -> Color(0xFFD92D20)
-            "Completed" -> Color(0xFF32D583)
-            else -> Color.Transparent
-        },
+        status = displayStatus,
+        statusColor = displayStatusColor,
         genres = parsedGenres,
         themes = parsedThemes,
         isInWatchlist = isInWatchlist,
