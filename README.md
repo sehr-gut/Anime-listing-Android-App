@@ -1,8 +1,7 @@
 # Anime-listing-Android-App
 This is a simple anime watchlist application created using kotlin and a sqlite3 database backend.
 ## Project Goals
-Made as a requirement for Applied Operating Systems, The goal is to create an anime app that will show a watchlist of anime that I will Choose. The primary user of this app is me. No VAP is needed as I dont have any app that can do this.
-
+Made as a requirement for Applied Operating Systems, The goal is to create an anime app that will show a watchlist of anime that the user will Choose. The primary user of this app are anime enthusiasts.
 ## User Stories
 1. I want to add anime to my watchlist and mark it complete in the app.
 2. I want to search for anime.
