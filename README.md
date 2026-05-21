@@ -35,12 +35,12 @@ https://www.kaggle.com/datasets/sazzadsiddiquelikhon/myanimelist-anime-database-
 | **Watchlist** | Anime_id, completed |
 
 
-UI/UX PROTOTYPE
+## UI/UX PROTOTYPE
 <p align="center">
   <img src="./anilist/Group 17.png" alt="Image 1" width="33%" />
   <img src="./anilist/Group 18.png" alt="Image 2" width="33%" />
   <img src="./anilist/Group 19.png" alt="Image 3" width="33%" />
 </p>
 
-DOWNLOAD
+## DOWNLOAD
 Check the releases for the APK download
