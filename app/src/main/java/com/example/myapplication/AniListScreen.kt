@@ -42,6 +42,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 data class Anime(
     val id: Int = 0,
     val url: String,
+    val imageUrl: String,
     val title: String,
     val subTitle: String,
     val duration: String,
@@ -72,7 +73,8 @@ fun AnimeWithDetails.toUiModel(): Anime {
 
     return Anime(
         id = mal_id ?: 0,
-        url =  url ?: image_jpg_large_url ?: "",
+        url = url ?: "",
+        imageUrl = image_jpg_large_url ?: "",
         title = title ?: "Untitled",
         subTitle = title_japanese ?: "",
         duration = duration ?: "",
@@ -402,6 +404,7 @@ fun AnimeCard(anime: Anime) {
                     putExtra("title", anime.title)
                     putExtra("subTitle", anime.subTitle)
                     putExtra("url", anime.url)
+                    putExtra("image_url", anime.imageUrl)
                     putStringArrayListExtra("genres", ArrayList(anime.genres))
                     putStringArrayListExtra("themes", ArrayList(anime.themes))
                     putExtra("isInWatchlist", anime.isInWatchlist)
@@ -429,7 +432,7 @@ fun AnimeCard(anime: Anime) {
                     .fillMaxWidth()
             ) {
                 GlideImage(
-                    model = anime.url,
+                    model = anime.imageUrl,
                     contentDescription = null,
                     modifier = Modifier
                         .width(80.dp)

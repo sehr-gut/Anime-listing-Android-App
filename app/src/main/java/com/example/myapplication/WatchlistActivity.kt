@@ -113,6 +113,7 @@ fun WatchlistCard(anime: Anime, viewModel: AnimeViewModel) {
                     putExtra("title", anime.title)
                     putExtra("subTitle", anime.subTitle)
                     putExtra("url", anime.url)
+                    putExtra("image_url", anime.imageUrl)
                     putStringArrayListExtra("genres", ArrayList(anime.genres))
                     putStringArrayListExtra("themes", ArrayList(anime.themes))
                     putExtra("isInWatchlist", anime.isInWatchlist)
@@ -140,7 +141,7 @@ fun WatchlistCard(anime: Anime, viewModel: AnimeViewModel) {
                     .fillMaxWidth()
             ) {
                 GlideImage(
-                    model = anime.url,
+                    model = anime.imageUrl,
                     contentDescription = null,
                     modifier = Modifier
                         .width(80.dp)

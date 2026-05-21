@@ -51,13 +51,14 @@ class AnimeDetailsActivity : ComponentActivity() {
         val title = intent.getStringExtra("title") ?: "Anime Title"
         val subTitle = intent.getStringExtra("subTitle") ?: "Japanese Title"
         val url = intent.getStringExtra("url") ?: ""
+        val imageUrl = intent.getStringExtra("image_url") ?: ""
         val genres = intent.getStringArrayListExtra("genres") ?: arrayListOf()
         val themes = intent.getStringArrayListExtra("themes") ?: arrayListOf()
         val isInWatchlist = intent.getBooleanExtra("isInWatchlist", false)
         
         setContent {
             MyApplicationTheme {
-                AnimeDetailsScreen(malId, title, subTitle, url, genres, themes, isInWatchlist)
+                AnimeDetailsScreen(malId, title, subTitle, url, imageUrl, genres, themes, isInWatchlist)
             }
         }
     }
@@ -88,6 +89,7 @@ fun AnimeDetailsScreen(
     title: String, 
     subTitle: String, 
     url: String, 
+    imageUrl: String,
     genres: List<String>, 
     themes: List<String>,
     initialIsInWatchlist: Boolean,
@@ -102,6 +104,7 @@ fun AnimeDetailsScreen(
     val currentTitle = dbAnime?.title ?: title
     val currentSubTitle = dbAnime?.subTitle ?: subTitle
     val currentUrl = dbAnime?.url ?: url
+    val currentImageUrl = dbAnime?.imageUrl ?: imageUrl
     val currentGenres = dbAnime?.genres ?: genres
     val currentThemes = dbAnime?.themes ?: themes
     val currentIsInWatchlist = dbAnime?.isInWatchlist ?: initialIsInWatchlist
@@ -148,9 +151,9 @@ fun AnimeDetailsScreen(
                             .height(280.dp)
                             .background(Color.DarkGray)
                     ) {
-                        if (currentUrl.isNotEmpty()) {
+                        if (currentImageUrl.isNotEmpty()) {
                             GlideImage(
-                                model = currentUrl,
+                                model = currentImageUrl,
                                 contentDescription = null,
                                 modifier = Modifier.fillMaxSize(),
                                 contentScale = androidx.compose.ui.layout.ContentScale.Crop
@@ -471,6 +474,7 @@ fun AnimeDetailsPreview() {
             1,
             "Initial D Fourth Stage", 
             "頭文字 〈イニシャル〉 D FOURTH STAGE", 
+            "",
             "",
             listOf("Action", "Drama"),
             listOf("Racing", "Cars"),
