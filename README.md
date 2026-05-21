@@ -7,7 +7,7 @@ Made as a requirement for Applied Operating Systems, The goal is to create an an
 2. I want to search for anime.
 3. I want to see anime from the database.
 
-## Data Models
+## Data Entities
 1. Anime
 2. Genre
 3. Studio
@@ -18,8 +18,10 @@ Made as a requirement for Applied Operating Systems, The goal is to create an an
 8. Score
 
 ## Entity Documentation
-Majority of the data modeling is from kaggle dataset called Anime Database 2025
-https://www.kaggle.com/datasets/sazzadsiddiquelikhon/myanimelist-anime-database-july-2025
+The data is from kaggle dataset called [Anime Database July 2025](https://www.kaggle.com/datasets/sazzadsiddiquelikhon/myanimelist-anime-database-july-2025).
+The dataset provided the data while the schema was made by me. <br>
+The DBMS that will be used is [Sqlite3](https://sqlite.org/)
+
 
 
 | Entity | Attributes |
@@ -42,4 +44,6 @@ https://www.kaggle.com/datasets/sazzadsiddiquelikhon/myanimelist-anime-database-
 </p>
 
 ## DOWNLOAD
-Check the releases for the APK download
+Check out the releases to see the latest versions
+- [Download Latest Release](https://github.com/sehr-gut/Anime-listing-Android-App/releases)
+
