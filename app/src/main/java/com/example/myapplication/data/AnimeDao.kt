@@ -6,9 +6,6 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AnimeDao {
 
-    // Shared filter: exclude Rx-Hentai rating AND anime that belong to Hentai (id=13) or Erotica (id=9) genres.
-    // Using a NOT EXISTS subquery on the mapping table is safe even when an anime has no genre mappings at all.
-
     @Query("""
         SELECT a.mal_id, a.url, a.title, a.title_japanese, a.duration, a.episodes, a.rating, a.status,
                s.score, i.image_jpg_large_url,
@@ -25,11 +22,6 @@ interface AnimeDao {
         LEFT JOIN image i ON a.mal_id = i.mal_id
         LEFT JOIN watchlist w ON a.mal_id = w.anime_id
         LEFT JOIN airing_information ai ON a.mal_id = ai.mal_id
-        WHERE (a.rating IS NULL OR a.rating != 'Rx - Hentai')
-          AND NOT EXISTS (
-              SELECT 1 FROM anime_genres_mapping em
-              WHERE em.mal_id = a.mal_id AND em.genres_id IN (9, 13)
-          )
     """)
     fun getAllAnime(): Flow<List<AnimeWithDetails>>
 
@@ -49,11 +41,6 @@ interface AnimeDao {
         LEFT JOIN score s ON a.mal_id = s.mal_id
         LEFT JOIN image i ON a.mal_id = i.mal_id
         LEFT JOIN airing_information ai ON a.mal_id = ai.mal_id
-        WHERE (a.rating IS NULL OR a.rating != 'Rx - Hentai')
-          AND NOT EXISTS (
-              SELECT 1 FROM anime_genres_mapping em
-              WHERE em.mal_id = a.mal_id AND em.genres_id IN (9, 13)
-          )
     """)
     fun getWatchlist(): Flow<List<AnimeWithDetails>>
 
@@ -73,12 +60,7 @@ interface AnimeDao {
         LEFT JOIN image i ON a.mal_id = i.mal_id
         LEFT JOIN watchlist w ON a.mal_id = w.anime_id
         LEFT JOIN airing_information ai ON a.mal_id = ai.mal_id
-        WHERE (a.rating IS NULL OR a.rating != 'Rx - Hentai')
-          AND NOT EXISTS (
-              SELECT 1 FROM anime_genres_mapping em
-              WHERE em.mal_id = a.mal_id AND em.genres_id IN (9, 13)
-          )
-          AND (a.title LIKE '%' || :searchQuery || '%' OR a.title_japanese LIKE '%' || :searchQuery || '%')
+        WHERE a.title LIKE '%' || :searchQuery || '%' OR a.title_japanese LIKE '%' || :searchQuery || '%'
     """)
     fun searchAnime(searchQuery: String): Flow<List<AnimeWithDetails>>
 
@@ -102,7 +84,7 @@ interface AnimeDao {
     """)
     fun getAnimeById(animeId: Int): Flow<AnimeWithDetails?>
 
-    @Query("SELECT genres_name FROM genres WHERE genres_id NOT IN (9, 13) ORDER BY genres_name")
+    @Query("SELECT genres_name FROM genres ORDER BY genres_name")
     fun getAllGenres(): Flow<List<String>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
